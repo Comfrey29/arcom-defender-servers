@@ -1,7 +1,9 @@
-ArCom Defender – Cliente
+# ArCom Defender – Cliente
+
 🛡️ Descripción
 
 ArCom Defender es un sistema de protección integral para servidores, diseñado para detectar y bloquear malware, scripts maliciosos, intentos de phishing, DDoS y actividades sospechosas.
+
 Incluye:
 
 Monitorización de archivos y directorios (file_monitor.py)
@@ -36,96 +38,57 @@ arcom-defender/
 ├─ quarantine/
 └─ README.md
 
-🔹 1️⃣ Instalación inicial
-
-Descargar todo el proyecto en el servidor o máquina local.
-
-Ejecutar el script de instalación:
-
+🔹 Instalación inicial
 sudo ./setup.sh
 
 
-El script:
+Verifica Python 3 y lo instala si falta
 
-Verifica si Python 3 está instalado y lo instala si es necesario
+Crea quarantine/
 
-Crea el directorio quarantine/
+Instala dependencias Python
 
-Instala las dependencias Python
-
-Instala opcionalmente Nginx y Fail2Ban
+Opcionalmente instala Nginx y Fail2Ban
 
 Aplica reglas de firewall (nftables.rules)
 
 Configura ModSecurity y Fail2Ban
 
-🔹 2️⃣ Comprobación de actualizaciones
-
-Antes de ejecutar el monitor, es recomendable comprobar si hay actualizaciones:
-
+🔹 Comprobación de actualizaciones
 python3 updater.py
 
 
-Compara la versión local (version.txt) con la versión remota en el servidor central
+Compara la versión local (version.txt) con la versión remota
 
-Descarga automáticamente archivos nuevos si hay actualización
+Descarga archivos nuevos si hay actualización
 
 Hace backup de los archivos anteriores
 
-Actualiza version.txt con la nueva versión
+Actualiza version.txt
 
-🔹 3️⃣ Ejecución del monitor
-
-Para iniciar la protección del cliente:
-
+🔹 Ejecución del monitor
 python3 file_monitor.py
 
 
-Carga la configuración de policy.json
-
 Vigila archivos y directorios críticos
 
-Aplica reglas YARA para detectar malware o scripts sospechosos
+Aplica reglas YARA
 
 Aplica limitación de tasa y protecciones del firewall
 
-Si detecta archivos sospechosos:
-
-Los mueve a quarantine/
+Mueve archivos sospechosos a quarantine/
 
 Envía alertas al servidor central (opcional)
 
-🔹 4️⃣ Integración con WAF y Fail2Ban
+🔹 Integración con WAF y Fail2Ban
 
 ModSecurity protege Nginx de ataques web (SQLi, XSS, exploits)
 
-Fail2Ban bloquea IPs sospechosas según filtros y jails
+Fail2Ban bloquea IPs sospechosas
 
-El cliente complementa estas protecciones detectando actividad maliciosa adicional
+El monitor complementa estas protecciones detectando actividad maliciosa adicional
 
-🔹 5️⃣ Uso diario
-
-El monitor puede ejecutarse en segundo plano o como servicio (systemd)
-
-Detecta y aísla automáticamente archivos sospechosos
-
-Mantiene logs y cuarentena de los archivos detectados
-
-Se puede actualizar periódicamente con updater.py
-
-Permite que el administrador central envíe órdenes (por ejemplo disable)
-
-🔹 6️⃣ Beneficios
-
-Protege el servidor contra malware, phishing, DDoS y scripts maliciosos
-
-Permite actualizaciones automáticas sin reinstalación manual
-
-Mantiene un registro completo de detecciones y acciones
-
-Integrable con un servidor central para monitorización y bloqueo global
-
-🔹 7️⃣ Flujo resumido
+🔹 Flujo resumido
 [setup.sh] --> [updater.py] --> [file_monitor.py]
       |                 |             |
       |                 |             +--> Vigila archivos y directorios
@@ -136,7 +99,7 @@ Integrable con un servidor central para monitorización y bloqueo global
       +--> Instala paquetes y dependencias
       +--> Configura firewall, WAF y Fail2Ban
 
-🔹 8️⃣ Buenas prácticas
+🔹 Buenas prácticas
 
 Mantener policy.json y yara_rules.yar actualizados
 
